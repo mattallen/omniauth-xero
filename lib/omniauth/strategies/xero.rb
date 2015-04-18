@@ -16,8 +16,8 @@ module OmniAuth
 
       info do
         {
-          :first_name => raw_info["FirstName"],
-          :last_name  => raw_info["LastName"],
+          :name => raw_info["Name"],
+          :legal_name  => raw_info["LegalName"],
         }
       end
 
@@ -30,12 +30,9 @@ module OmniAuth
       private
 
       def raw_info
-        @raw_info ||= users.find { |user| user["IsSubscriber"] }
+        @raw_info ||= JSON.parse(access_token.get("/api.xro/2.0/Organisation", {'Accept'=>'application/json'}).body)["Organisation"]
       end
 
-      def users
-        @users ||= JSON.parse(access_token.get("/api.xro/2.0/Users", {'Accept'=>'application/json'}).body)["Users"]
-      end
     end
   end
 end

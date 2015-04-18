@@ -39,8 +39,9 @@ module OmniAuth
       def users
         @users ||= JSON.parse(access_token.get("/api.xro/2.0/Users", {'Accept'=>'application/json'}).body)["Users"]
       end
+
       def organisation
-        @organisation ||= JSON.parse(access_token.get("/api.xro/2.0/Organisation", {'Accept'=>'application/json'}).body)["Organisation"]
+        @organisation ||= JSON.parse(access_token.get("/api.xro/2.0/Organisation", {'Accept'=>'application/json'}).body)["Organisations"]
       end
     end
   end
